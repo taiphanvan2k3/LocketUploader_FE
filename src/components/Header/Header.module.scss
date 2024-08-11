@@ -1,0 +1,19 @@
+.wrapper {
+    margin: 0 auto;
+    width: 80%;
+}
+
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    h1 {
+        color: var(--primary-color);
+    }
+}

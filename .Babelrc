@@ -1,0 +1,14 @@
+{
+    "plugins": [
+        [
+            "module-resolver",
+            {
+                "root": ["./src"],
+                "alias": {
+                    // Khi babel gặp ~ thì sẽ hiểu là ./src
+                    "~": "./src"
+                }
+            }
+        ]
+    ]
+}

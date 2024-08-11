@@ -1,0 +1,45 @@
+@import "normalize.css";
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,400;0,500;0,600;0,700;1,300;1,400&display=swap");
+
+:root {
+    --primary-color: rgb(216, 182, 27);
+}
+
+* {
+    // Giúp hiển thị đúng kích thước của phần tử khi sử dụng padding và border
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    // 1rem = 10px
+    font-size: 62.5%;
+}
+
+body {
+    font-family: "IBM+Plex+Sans", sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.5;
+
+    // Tối ưu tốc độ hiển thị font cho trình duyệt
+    text-rendering: optimizeSpeed;
+    color: var(--text-color);
+
+    // Để thanh cuộn không chiếm không gian
+    overflow-y: overlay;
+    overflow: hidden;
+}
+
+button,
+input,
+[tabindex] {
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-color);
+}

@@ -1,0 +1,4 @@
+# Giúp cho các editor khác nhau hiểu và thống nhất về cách setting, cũng như format code
+[*]
+indent_style = space
+indent_size = 4 # Để như này sẽ quy định 1 thụt lề là 4 space
