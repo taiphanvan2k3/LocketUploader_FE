@@ -1,6 +1,13 @@
 .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin: 0 auto;
     width: 80%;
+
+    h1 {
+        margin-bottom: 0;
+    }
 }
 
 .logo-wrapper {
