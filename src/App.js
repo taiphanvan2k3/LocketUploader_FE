@@ -6,7 +6,7 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                {routes.map((route, index) => {
+                {routes.map((route, _) => {
                     return (
                         <Route
                             key={route.path}

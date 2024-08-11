@@ -17,7 +17,7 @@ input[type="file"] {
     padding: 30px;
     padding-bottom: 20px;
     width: 60%;
-    height: 80%;
+    height: 90%;
     background: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -66,14 +66,39 @@ input[type="file"] {
         text-align: center;
     }
 
-    img {
+    .upload-icon {
         width: 120px;
         height: 100%;
         object-fit: cover;
         cursor: pointer;
     }
+
+    .preview-img {
+        width: 250px;
+        object-fit: cover;
+    }
 }
 
+.preview-wrapper {
+    position: relative;
+
+    .btn-delete-preview {
+        display: flex;
+        border-radius: 50%;
+        width: 20px;
+        background: #fff;
+        height: 20px;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+
+        &:hover {
+            color: red;
+        }
+    }
+}
 .actions {
     margin-top: 10px;
     text-align: right;
@@ -100,5 +125,35 @@ input[type="file"] {
 
     button + button {
         margin-left: 10px;
+    }
+
+    .btn-submit:not(:disabled) {
+        background-color: var(--primary-color);
+        color: #fff;
+        border: none;
+    }
+}
+
+// No login
+.no-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    height: 50%;
+
+    .btn-login {
+        font-size: 1.5rem;
+        padding: 10px 20px;
+        border-radius: 5px;
+        background-color: var(--primary-color);
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .btn-login:hover {
+        opacity: 0.8;
     }
 }
