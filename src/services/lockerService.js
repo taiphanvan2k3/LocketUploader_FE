@@ -19,7 +19,12 @@ export const uploadMedia = async (file, caption) => {
     try {
         const user = JSON.parse(miscFuncs.getCookie("user"));
         const formData = new FormData();
-        formData.append("images", file);
+        if (file.type.includes("image")) {
+            formData.append("images", file);
+        } else if (file.type.includes("video")) {
+            formData.append("videos", file);
+        }
+
         formData.append("caption", caption);
         formData.append("userId", user.localId);
         formData.append("idToken", user.idToken);
