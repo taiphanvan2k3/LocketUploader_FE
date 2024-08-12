@@ -48,6 +48,7 @@ input[type="file"] {
         align-items: center;
         justify-content: center;
         border: 1px dashed #ccc;
+        border-radius: 8px;
         flex: 1;
     }
 
@@ -73,14 +74,23 @@ input[type="file"] {
         cursor: pointer;
     }
 
-    .preview-img {
-        width: 250px;
+    .preview-image {
+        width: 400px;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+    }
+
+    .preview-video {
+        width: 500px;
         object-fit: cover;
     }
 }
 
 .preview-wrapper {
     position: relative;
+    max-height: 350px;
+    overflow: hidden;
 
     .btn-delete-preview {
         display: flex;

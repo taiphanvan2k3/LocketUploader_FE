@@ -47,6 +47,21 @@ const Upload = () => {
         }
     };
 
+    const handleDragOver = (e) => {
+        // Ngăn chặn hành động mặc định của thẻ HTML để cho phép thả file vào
+        e.preventDefault();
+    };
+
+    const handleSelectFileFromDrop = (e) => {
+        e.preventDefault();
+        const { files } = e.dataTransfer;
+        if (files?.length) {
+            const objectUrl = URL.createObjectURL(files[0]);
+            setFile(files[0]);
+            setPreviewUrl(objectUrl);
+        }
+    };
+
     const handleUploadFile = () => {
         if (file) {
             lockerService.uploadMedia(file, caption).then((res) => {
@@ -74,14 +89,35 @@ const Upload = () => {
                                 onChange={(e) => setCaption(e.target.value)}
                             />
                         </div>
-                        <div className={cx("upload-area")}>
+                        <div
+                            className={cx("upload-area")}
+                            onDragOver={handleDragOver}
+                            onDrop={handleSelectFileFromDrop}
+                            role="button"
+                            tabIndex="0"
+                        >
                             {previewUrl ? (
                                 <div className={cx("preview-wrapper")}>
-                                    <img
-                                        src={previewUrl}
-                                        alt="preview"
-                                        className={cx("preview-img")}
-                                    />
+                                    {file.type.includes("image") ? (
+                                        <img
+                                            src={previewUrl}
+                                            alt="preview"
+                                            className={cx("preview-image")}
+                                        />
+                                    ) : (
+                                        <video
+                                            src={previewUrl}
+                                            alt="preview"
+                                            className={cx("preview-video")}
+                                            controls
+                                        >
+                                            <track
+                                                kind="captions"
+                                                src="captions.vtt"
+                                                label="English"
+                                            />
+                                        </video>
+                                    )}
                                     <button
                                         className={cx("btn-delete-preview")}
                                         onClick={() => setPreviewUrl("")}
