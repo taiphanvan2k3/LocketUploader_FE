@@ -4,7 +4,7 @@ import * as miscFuncs from "~/helper/misc-functions";
 
 export const login = async (email, password) => {
     try {
-        const res = await axios.post(constants.LOGIN_URL, {
+        const res = await axios.post(constants.apiRoutes.LOGIN_URL, {
             email,
             password,
         });
@@ -29,11 +29,15 @@ export const uploadMedia = async (file, caption) => {
         formData.append("userId", user.localId);
         formData.append("idToken", user.idToken);
 
-        const res = await axios.post(constants.UPLOAD_MEDIA_URL, formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
+        const res = await axios.post(
+            constants.apiRoutes.UPLOAD_MEDIA_URL,
+            formData,
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
             },
-        });
+        );
 
         return res.data;
     } catch (error) {

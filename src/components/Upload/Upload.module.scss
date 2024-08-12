@@ -109,6 +109,7 @@ input[type="file"] {
         }
     }
 }
+
 .actions {
     margin-top: 10px;
     text-align: right;
@@ -137,10 +138,24 @@ input[type="file"] {
         margin-left: 10px;
     }
 
+    .btn-submit {
+        position: relative;
+    }
+
     .btn-submit:not(:disabled) {
         background-color: var(--primary-color);
         color: #fff;
         border: none;
+    }
+
+    .spinner {
+        position: absolute;
+        width: 25px;
+        margin-left: 5px;
+    }
+
+    .btn-submit.is-loading {
+        padding-right: 35px;
     }
 }
 

@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import styles from "./Upload.module.scss";
 import classNames from "classnames/bind";
+import { toast } from "react-toastify";
 
 import { AuthContext } from "~/contexts/AuthContext";
+import constants from "~/services/constants";
 import images from "~/assets/images";
 import LoginModal from "../Modals/Login/LoginModal";
 import * as miscFuncs from "~/helper/misc-functions";
@@ -16,6 +18,7 @@ const Upload = () => {
     const [caption, setCaption] = useState("");
     const [previewUrl, setPreviewUrl] = useState("");
     const [isShowModal, setIsShowModal] = useState(false);
+    const [isUploading, setIsUploading] = useState(false);
     const fileRef = useRef(null);
 
     useEffect(() => {
@@ -30,6 +33,9 @@ const Upload = () => {
         setIsShowModal(false);
         setUser(userInfo.user);
 
+        toast.success("Login successfully", {
+            ...constants.toastSettings,
+        });
         // Lưu vào cookie
         miscFuncs.setCookie("user", JSON.stringify(userInfo.user), 1);
     };
@@ -64,11 +70,19 @@ const Upload = () => {
 
     const handleUploadFile = () => {
         if (file) {
+            setIsUploading(true);
             lockerService.uploadMedia(file, caption).then((res) => {
                 if (res) {
                     setPreviewUrl("");
                     setCaption("");
-                    window.alert("Upload successfully");
+                    setIsUploading(false);
+
+                    const fileType = file.type.includes("image")
+                        ? "image"
+                        : "video";
+                    toast.success(`Upload ${fileType} successfully`, {
+                        ...constants.toastSettings,
+                    });
                 }
             });
         }
@@ -158,11 +172,24 @@ const Upload = () => {
                                     Cancel
                                 </button>
                                 <button
-                                    disabled={previewUrl ? "" : "disable"}
-                                    className={cx("btn-submit")}
+                                    disabled={
+                                        previewUrl && caption && !isUploading
+                                            ? ""
+                                            : "disable"
+                                    }
+                                    className={cx("btn-submit", {
+                                        "is-loading": isUploading,
+                                    })}
                                     onClick={handleUploadFile}
                                 >
-                                    Submit
+                                    <span>Submit</span>
+                                    {isUploading && (
+                                        <img
+                                            src={images.spinner}
+                                            alt="spinner"
+                                            className={cx("spinner")}
+                                        />
+                                    )}
                                 </button>
                             </div>
                         </div>
