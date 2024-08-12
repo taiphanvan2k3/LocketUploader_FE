@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 
+import constants from "~/services/constants";
 import "./LoginModal.scss";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -12,9 +14,18 @@ const LoginModal = ({ handleAfterLogin, ...props }) => {
     const [password, setPassword] = useState("");
 
     const handleLogin = async () => {
+        const toastInfoId = toast.info("Logging in ....", {
+            ...constants.toastSettings,
+        });
+
         const res = await lockerService.login(email, password);
         if (res) {
             handleAfterLogin(res);
+        } else {
+            toast.dismiss(toastInfoId);
+            toast.error("Username or password is incorrect", {
+                ...constants.toastSettings,
+            });
         }
     };
 
@@ -70,6 +81,7 @@ const LoginModal = ({ handleAfterLogin, ...props }) => {
                     variant="primary"
                     onClick={handleLogin}
                     className="btn-login"
+                    disabled={!email || !password}
                 >
                     Login
                 </Button>
