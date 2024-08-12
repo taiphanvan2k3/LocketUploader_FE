@@ -5,7 +5,7 @@
             {
                 "root": ["./src"],
                 "alias": {
-                    // Khi babel gặp ~ thì sẽ hiểu là ./src
+                    // Khi babel gặp ~ thì sẽ hiểu là ./src  
                     "~": "./src"
                 }
             }
