@@ -71,22 +71,35 @@ const Upload = () => {
     };
 
     const handleUploadFile = () => {
+        const fileType = file.type.includes("image") ? "image" : "video";
         if (file) {
             setIsUploading(true);
-            lockerService.uploadMedia(file, caption).then((res) => {
-                if (res) {
-                    setPreviewUrl("");
-                    setCaption("");
-                    setIsUploading(false);
+            lockerService
+                .uploadMedia(file, caption)
+                .then((res) => {
+                    if (res) {
+                        setPreviewUrl("");
+                        setCaption("");
+                        setIsUploading(false);
 
-                    const fileType = file.type.includes("image")
-                        ? "image"
-                        : "video";
-                    toast.success(`Upload ${fileType} successfully`, {
+                        toast.success(`Upload ${fileType} successfully`, {
+                            ...constants.toastSettings,
+                        });
+                    }
+                })
+                .catch((error) => {
+                    let message =
+                        error?.response?.data?.error?.message ||
+                        "Upload failed";
+
+                    if (message === "Failed to upload image: Forbidden") {
+                        message = `Your ${fileType} is exceeding the maximum size allowed, please try again with a smaller ${fileType}`;
+                    }
+                    setIsUploading(false);
+                    toast.error(message, {
                         ...constants.toastSettings,
                     });
-                }
-            });
+                });
         }
     };
 
