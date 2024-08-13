@@ -42,5 +42,6 @@ export const uploadMedia = async (file, caption) => {
         return res.data;
     } catch (error) {
         console.log("Upload media failed: ", error);
+        throw error;
     }
 };
