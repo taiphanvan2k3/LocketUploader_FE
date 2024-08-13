@@ -8,7 +8,7 @@ import { deleteCookie } from "~/helper/misc-functions";
 import { AuthContext } from "~/contexts/AuthContext";
 const cx = classNames.bind(styles);
 
-const UserDropdown = ({ userInfo }) => {
+const UserDropdown = ({ userInfo, className }) => {
     const { setUser } = useContext(AuthContext);
 
     const handleLogout = () => {
@@ -17,7 +17,7 @@ const UserDropdown = ({ userInfo }) => {
     };
 
     return (
-        <div className={cx("wrapper")}>
+        <div className={cx("wrapper", className)}>
             <span>Xin chào</span>
             <TippyHeadless
                 render={(attrs) => (
@@ -39,6 +39,7 @@ const UserDropdown = ({ userInfo }) => {
 
 UserDropdown.propTypes = {
     userInfo: PropTypes.object,
+    className: PropTypes.string,
 };
 
 export default UserDropdown;
