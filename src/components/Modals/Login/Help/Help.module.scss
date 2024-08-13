@@ -1,0 +1,22 @@
+.wrapper {
+    padding: 10px;
+    background-color: #fff;
+    width: 350px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-size: 1.35rem;
+
+    .content {
+        text-align: left;
+    }
+
+    .link {
+        color: var(--primary-color);
+    }
+}
+
+.help-me {
+    color: var(--primary-color);
+    cursor: pointer;
+    font-weight: 500;
+}

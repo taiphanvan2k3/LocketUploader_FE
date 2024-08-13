@@ -1,0 +1,35 @@
+.wrapper {
+    display: flex;
+    gap: 10px;
+
+    .display-name {
+        cursor: pointer;
+        color: var(--primary-color);
+    }
+}
+
+.dropdown {
+    border-radius: 8px;
+    background-color: #fff;
+    width: 150px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.dropdown-item {
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding: 10px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgb(253, 239, 212);
+    }
+
+    button {
+        width: 100%;
+        text-align: left;
+        font-weight: 500;
+        background-color: transparent;
+    }
+}

@@ -111,6 +111,9 @@ input[type="file"] {
 }
 
 .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-top: 10px;
     text-align: right;
 

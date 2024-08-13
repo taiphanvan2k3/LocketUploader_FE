@@ -7,22 +7,28 @@ import "./LoginModal.scss";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Form } from "react-bootstrap";
-import * as lockerService from "~/services/lockerService";
+import * as locketService from "~/services/locketService";
+import * as securityService from "~/services/securityService";
 
 const LoginModal = ({ handleAfterLogin, ...props }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const handleLogin = async () => {
-        const toastInfoId = toast.info("Logging in ....", {
+        toast.info("Logging in ....", {
             ...constants.toastSettings,
         });
 
-        const res = await lockerService.login(email, password);
+        const { encryptedEmail, encryptedPassword } =
+            securityService.encryptLoginData(email, password);
+        const res = await locketService.login(
+            encryptedEmail,
+            encryptedPassword,
+        );
         if (res) {
             handleAfterLogin(res);
         } else {
-            toast.dismiss(toastInfoId);
+            toast.dismiss();
             toast.error("Username or password is incorrect", {
                 ...constants.toastSettings,
             });
@@ -47,7 +53,7 @@ const LoginModal = ({ handleAfterLogin, ...props }) => {
             <Modal.Body>
                 <Form autoComplete="off">
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Email</Form.Label>
+                        <Form.Label className="custom-label">Email</Form.Label>
                         <Form.Control
                             className={"bs-input"}
                             type="text"
@@ -60,7 +66,9 @@ const LoginModal = ({ handleAfterLogin, ...props }) => {
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword" className="mt-3">
-                        <Form.Label>Password</Form.Label>
+                        <Form.Label className="custom-label">
+                            Password
+                        </Form.Label>
                         <Form.Control
                             type="password"
                             placeholder="Password"
