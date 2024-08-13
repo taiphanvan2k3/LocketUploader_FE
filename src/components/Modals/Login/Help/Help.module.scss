@@ -19,4 +19,12 @@
     color: var(--primary-color);
     cursor: pointer;
     font-weight: 500;
+    min-width: 70px;
+    text-align: left;
+}
+
+@media screen and (max-width: 350px) {
+    .wrapper {
+        width: 250px;
+    }
 }

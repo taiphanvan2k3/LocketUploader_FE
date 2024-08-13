@@ -4,6 +4,7 @@
     justify-content: space-between;
     margin: 0 auto;
     width: 80%;
+    padding-top: 20px;
 
     h1 {
         margin-bottom: 0;
@@ -22,5 +23,21 @@
 
     h1 {
         color: var(--primary-color);
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .wrapper {
+        width: 90%;
+    }
+
+    .wrapper:has(.dropdown-wrapper) {
+        h1 {
+            width: 50%;
+        }
+    }
+
+    .logo-wrapper {
+        gap: 3px;
     }
 }

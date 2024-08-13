@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 
 import images from "~/assets/images";
 import { AuthContext } from "~/contexts/AuthContext";
-import UserDropdown from "../UserDropdown";
+import UserDropdown from "~/components/UserDropdown";
 const cx = classNames.bind(styles);
 
 const Header = () => {
@@ -19,7 +19,12 @@ const Header = () => {
                 <h1>Locket uploader</h1>
             </div>
 
-            {user && <UserDropdown userInfo={user} />}
+            {user && (
+                <UserDropdown
+                    userInfo={user}
+                    className={cx("dropdown-wrapper")}
+                />
+            )}
         </div>
     );
 };

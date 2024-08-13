@@ -33,3 +33,10 @@
         background-color: transparent;
     }
 }
+
+@media screen and (max-width: 400px) {
+    .wrapper {
+        flex-direction: column;
+        gap: 0;
+    }
+}
