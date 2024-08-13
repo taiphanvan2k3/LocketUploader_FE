@@ -7,6 +7,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     useEffect(() => {
+        console.log("useEffect AuthProvider");
         setUser(JSON.parse(miscFuncs.getCookie("user")));
     }, []);
 

@@ -8,7 +8,8 @@ import constants from "~/services/constants";
 import images from "~/assets/images";
 import LoginModal from "../Modals/Login/LoginModal";
 import * as miscFuncs from "~/helper/misc-functions";
-import * as lockerService from "~/services/lockerService";
+import * as lockerService from "~/services/locketService";
+import Help from "../Modals/Login/Help";
 const cx = classNames.bind(styles);
 
 const Upload = () => {
@@ -33,6 +34,7 @@ const Upload = () => {
         setIsShowModal(false);
         setUser(userInfo.user);
 
+        toast.dismiss();
         toast.success("Login successfully", {
             ...constants.toastSettings,
         });
@@ -167,6 +169,7 @@ const Upload = () => {
                             )}
                         </div>
                         <div className={cx("actions")}>
+                            <Help />
                             <div className={cx("buttons")}>
                                 <button onClick={() => setPreviewUrl("")}>
                                     Cancel
