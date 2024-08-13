@@ -10,7 +10,7 @@ import { Form } from "react-bootstrap";
 import * as locketService from "~/services/locketService";
 import * as securityService from "~/services/securityService";
 
-const LoginModal = ({ handleAfterLogin, ...props }) => {
+const LoginModal = ({ handleAfterLogin, onPleaseWait, ...props }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -24,6 +24,7 @@ const LoginModal = ({ handleAfterLogin, ...props }) => {
         const res = await locketService.login(
             encryptedEmail,
             encryptedPassword,
+            onPleaseWait,
         );
         if (res) {
             handleAfterLogin(res);
@@ -101,6 +102,7 @@ const LoginModal = ({ handleAfterLogin, ...props }) => {
 LoginModal.propTypes = {
     handleAfterLogin: PropTypes.func,
     onHide: PropTypes.func,
+    onPleaseWait: PropTypes.func,
 };
 
 export default LoginModal;

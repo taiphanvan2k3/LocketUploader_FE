@@ -75,7 +75,7 @@ const Upload = () => {
         if (file) {
             setIsUploading(true);
             lockerService
-                .uploadMedia(file, caption)
+                .uploadMedia(file, caption, showToastPleaseWait)
                 .then((res) => {
                     if (res) {
                         setPreviewUrl("");
@@ -101,6 +101,16 @@ const Upload = () => {
                     });
                 });
         }
+    };
+
+    const showToastPleaseWait = () => {
+        toast.dismiss();
+        toast.info(
+            "I just migrated the server to Render at the free version, so the request may take a longer time. Please wait for it. ",
+            {
+                ...constants.toastSettings,
+            },
+        );
     };
 
     return (
@@ -223,6 +233,7 @@ const Upload = () => {
                             handleAfterLogin={handleAfterLogin}
                             show={isShowModal}
                             onHide={() => setIsShowModal(false)}
+                            onPleaseWait={showToastPleaseWait}
                         />
                     </div>
                 )}
