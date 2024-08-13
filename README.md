@@ -4,6 +4,11 @@
 
 Welcome to **Locket Uploader**! This is the perfect solution for everyone who doesn't have a `Locket Gold` account but still wants to upload and manage their images and videos with ease. My website provides a simple and intuitive platform that allows you to upload your media files to your account.
 
+## Demo
+<img src="https://github.com/user-attachments/assets/57c9b37d-bc17-451f-ba1a-e3f6a4050030" alt="Locket Media Uploader" width="300"/>
+
+https://github.com/user-attachments/assets/627d9437-2552-42db-b073-b684e193504d
+
 ## Features
 
 - **Easy Media Upload**: Upload your images and videos effortlessly through our user-friendly interface through selecting files or dragging and dropping.
