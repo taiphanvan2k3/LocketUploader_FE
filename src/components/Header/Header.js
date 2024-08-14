@@ -10,8 +10,6 @@ const cx = classNames.bind(styles);
 const Header = () => {
     const { user } = useContext(AuthContext);
 
-    console.log(user);
-
     return (
         <div className={cx("wrapper")}>
             <div className={cx("logo-wrapper")}>

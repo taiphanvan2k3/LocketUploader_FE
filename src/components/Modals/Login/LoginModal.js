@@ -9,36 +9,64 @@ import Modal from "react-bootstrap/Modal";
 import { Form } from "react-bootstrap";
 import * as locketService from "~/services/locketService";
 import * as securityService from "~/services/securityService";
+import { validateEmail } from "~/helper/misc-functions";
+import images from "~/assets/images";
 
 const LoginModal = ({ handleAfterLogin, onPleaseWait, ...props }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isDisabledSubmit, setIsDisabledSubmit] = useState(false);
+    const [isShowPassword, setIsShowPassword] = useState(false);
+    const [emailErrorMessage, setEmailErrorMessage] = useState("");
 
     const handleLogin = async () => {
-        toast.info("Logging in ....", {
+        toast.dismiss();
+        const toastId = toast.info("Logging in ....", {
             ...constants.toastSettings,
         });
 
         const { encryptedEmail, encryptedPassword } =
             securityService.encryptLoginData(email, password);
+
+        setIsDisabledSubmit(true);
+
         const res = await locketService.login(
             encryptedEmail,
             encryptedPassword,
             onPleaseWait,
         );
+
         if (res) {
             handleAfterLogin(res);
+        } else if (toast.isActive(toastId)) {
+            toast.update(toastId, {
+                ...constants.toastSettings,
+                render: "Username or password is incorrect",
+                type: "error",
+            });
         } else {
             toast.dismiss();
             toast.error("Username or password is incorrect", {
                 ...constants.toastSettings,
             });
         }
+        setIsDisabledSubmit(false);
     };
 
     const handleEnterOnInput = (e) => {
         if (e.key === "Enter") {
             handleLogin();
+        }
+    };
+
+    const handleChangeEmail = (e) => {
+        setEmail(e.target.value);
+        if (e.target.value && !validateEmail(e.target.value)) {
+            setEmailErrorMessage("Invalid email");
+            setIsDisabledSubmit(true);
+        } else {
+            setEmailErrorMessage("");
+            setIsDisabledSubmit(false);
         }
     };
 
@@ -54,13 +82,21 @@ const LoginModal = ({ handleAfterLogin, onPleaseWait, ...props }) => {
             <Modal.Body>
                 <Form autoComplete="off">
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Label className="custom-label">Email</Form.Label>
+                        <Form.Label className="custom-label">
+                            {emailErrorMessage ? (
+                                <span style={{ color: "red" }}>
+                                    {emailErrorMessage}
+                                </span>
+                            ) : (
+                                "Email"
+                            )}
+                        </Form.Label>
                         <Form.Control
                             className={"bs-input"}
                             type="text"
                             placeholder="Enter email"
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={handleChangeEmail}
                             autoComplete="none"
                             onKeyDown={handleEnterOnInput}
                         />
@@ -70,15 +106,36 @@ const LoginModal = ({ handleAfterLogin, onPleaseWait, ...props }) => {
                         <Form.Label className="custom-label">
                             Password
                         </Form.Label>
-                        <Form.Control
-                            type="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            autoComplete="new-password"
-                            className={"bs-input"}
-                            onKeyDown={handleEnterOnInput}
-                        />
+                        <div className="password-wrapper">
+                            <Form.Control
+                                type={isShowPassword ? "text" : "password"}
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                autoComplete="new-password"
+                                className={"bs-input"}
+                                onKeyDown={handleEnterOnInput}
+                            />
+                            {
+                                <button
+                                    className="show-password"
+                                    type="button"
+                                    onMouseDown={() => setIsShowPassword(true)}
+                                    onMouseUp={() => setIsShowPassword(false)}
+                                    onTouchStart={() => setIsShowPassword(true)}
+                                    onTouchEnd={() => setIsShowPassword(false)}
+                                >
+                                    {isShowPassword ? (
+                                        <img src={images.eye} alt="eye" />
+                                    ) : (
+                                        <img
+                                            src={images.noEye}
+                                            alt="eye-slash"
+                                        />
+                                    )}
+                                </button>
+                            }
+                        </div>
                     </Form.Group>
                 </Form>
             </Modal.Body>
@@ -90,7 +147,7 @@ const LoginModal = ({ handleAfterLogin, onPleaseWait, ...props }) => {
                     variant="primary"
                     onClick={handleLogin}
                     className="btn-login"
-                    disabled={!email || !password}
+                    disabled={!email || !password || isDisabledSubmit}
                 >
                     Login
                 </Button>

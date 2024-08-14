@@ -3,11 +3,11 @@ import constants from "./constants";
 import * as miscFuncs from "~/helper/misc-functions";
 
 export const login = async (email, password, onPleaseWait) => {
-    try {
-        const timeOutId = setTimeout(() => {
-            onPleaseWait();
-        }, 5000);
+    const timeOutId = setTimeout(() => {
+        onPleaseWait();
+    }, 5000);
 
+    try {
         const res = await axios.post(constants.apiRoutes.LOGIN_URL, {
             email,
             password,
@@ -16,16 +16,17 @@ export const login = async (email, password, onPleaseWait) => {
         clearTimeout(timeOutId);
         return res.data;
     } catch (error) {
-        console.log("Login failed: ", error);
+        clearTimeout(timeOutId);
+        return null;
     }
 };
 
 export const uploadMedia = async (file, caption, onPleaseWait) => {
+    let timeOutId;
     try {
         const user = JSON.parse(miscFuncs.getCookie("user"));
         const formData = new FormData();
 
-        let timeOutId;
         if (file.type.includes("image")) {
             formData.append("images", file);
             timeOutId = setTimeout(() => {
@@ -55,7 +56,7 @@ export const uploadMedia = async (file, caption, onPleaseWait) => {
         clearTimeout(timeOutId);
         return res.data;
     } catch (error) {
-        console.log("Upload media failed: ", error);
+        clearTimeout(timeOutId);
         throw error;
     }
 };

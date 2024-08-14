@@ -55,3 +55,21 @@
     pointer-events: unset !important;
     cursor: not-allowed;
 }
+
+.password-wrapper {
+    position: relative;
+
+    .show-password {
+        background-color: transparent;
+        position: absolute;
+        cursor: pointer;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+
+        img {
+            width: 20px;
+            height: 20px;
+        }
+    }
+}
