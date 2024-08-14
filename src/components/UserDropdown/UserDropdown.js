@@ -30,6 +30,7 @@ const UserDropdown = ({ userInfo, className }) => {
                 interactive
                 placement="bottom-end"
                 delay={[100, 500]}
+                hideOnClick={false}
             >
                 <b className={cx("display-name")}>{userInfo?.displayName}</b>
             </TippyHeadless>

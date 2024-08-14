@@ -5,6 +5,7 @@
     .display-name {
         cursor: pointer;
         color: var(--primary-color);
+        user-select: none;
     }
 }
 
